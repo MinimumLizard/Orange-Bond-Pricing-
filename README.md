@@ -117,7 +117,7 @@ The tests assert these new values, and the brief's values in a separate test.
    - pushed the same commit to `main`, as the brief asks Pages to serve from main;
    - pushed a `gh-pages` branch to trigger GitHub's automatic Pages set-up.
 
-   The live URL and the final message say which source Pages ended up serving from. **To serve from `main` / root** instead: Settings → Pages → Source: *Deploy from a branch* → `main` / `/ (root)`. The content is identical.
+   GitHub enabled Pages automatically, serving **`gh-pages` / root**. All three branches hold the same commit. **To serve from `main` / root, as the brief intended:** Settings → Pages → Source: *Deploy from a branch* → `main` / `/ (root)` → Save. The URL does not change. The repository's default branch also became `claude/amazing-turing-xhej13`, because that was pushed first. To switch it to `main`: Settings → General → Default branch.
 2. **Reference date for government yields** = the date the coupon was fixed, where it is public. Otherwise, the opening date.
    - Social: prospectus dated **7 Aug 2025**, so I used the Daily FT / Wealth Trust report of 5 Aug 2025.
    - Green: I could not find the prospectus date, so I used the opening date, **17 Feb 2025**, and the Wealth Trust report of that date.
@@ -195,4 +195,43 @@ I verified the page with Playwright and Chromium at 1280 px and 390 px. The chec
 - the dark theme renders;
 - the quote toggles work.
 
-The results for the live URL are in the final report of the session that built this page.
+I ran the same checks against the live URL after publishing (see the log below).
+
+#### Live verification log (4 Nov 2026, https://minimumlizard.github.io/Orange-Bond-Pricing-/)
+
+```text
+PASS  [desktop] HTTP status  — 200
+PASS  [desktop] no console errors
+PASS  [desktop] Chart.js loaded and build chart has 6 bars  — bars=6
+PASS  [desktop] build chart canvas painted  — painted samples=8098
+PASS  [desktop] guarantee chart rendered  — paths=4
+PASS  [desktop] no horizontal scroll  — 1280 vs 1280
+PASS  [desktop] data table rows  — rows=30, unverified badges=3
+      base cards: 12.84%, 12.40%, 11.97%; econ: LKR 8.7m, LKR 26.2m, 0.79%, LKR 9.7m; as of 3 November 2026
+PASS  [desktop] slider updates cards  — 12.84% / 12.40% / 11.97% -> 13.09% / 12.66% / 12.22%
+PASS  [desktop] slider updates chart  — orange gov=11.55
+PASS  [desktop] URL stores state  — ?g=11.55
+PASS  [desktop] unsecured slider moves Orange spread  — spread=2
+PASS  [desktop] link reproduces scenario  — 13.55% / 12.89% / 12.22%
+PASS  [desktop] reset restores base values  — 12.84% / 12.40% / 11.97%
+PASS  [desktop] quote toggle opens
+PASS  [desktop] no console errors after interaction
+PASS  [mobile] HTTP status  — 200
+PASS  [mobile] no console errors
+PASS  [mobile] Chart.js loaded and build chart has 6 bars  — bars=6
+PASS  [mobile] build chart canvas painted  — painted samples=1796
+PASS  [mobile] guarantee chart rendered  — paths=4
+PASS  [mobile] no horizontal scroll  — 390 vs 390
+PASS  [mobile] data table rows  — rows=30, unverified badges=3
+      base cards: 12.84%, 12.40%, 11.97%; econ: LKR 8.7m, LKR 26.2m, 0.79%, LKR 9.7m; as of 3 November 2026
+PASS  [mobile] slider updates cards  — 12.84% / 12.40% / 11.97% -> 13.09% / 12.66% / 12.22%
+PASS  [mobile] slider updates chart  — orange gov=11.55
+PASS  [mobile] URL stores state  — ?g=11.55
+PASS  [mobile] unsecured slider moves Orange spread  — spread=2
+PASS  [mobile] link reproduces scenario  — 13.55% / 12.89% / 12.22%
+PASS  [mobile] reset restores base values  — 12.84% / 12.40% / 11.97%
+PASS  [mobile] quote toggle opens
+PASS  [mobile] no console errors after interaction
+
+ALL CHECKS PASSED
+```
