@@ -1,0 +1,9 @@
+{
+  "name": "orange-bond-pricing",
+  "private": true,
+  "description": "Orange Bond pricing: an illustrative model (static site, no dependencies)",
+  "scripts": {
+    "test": "node --test tests/model.test.mjs",
+    "sync": "node tools/sync-inputs.mjs"
+  }
+}

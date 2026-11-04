@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orange Bond Pricing Model</title>
+  <meta name="description" content="Orange Bond pricing: an illustrative model. Estimates the coupon on a 3-year Orange Bond from the spreads on Alliance Finance Company PLC's Green Bond (Feb 2025) and Social Bond (Aug 2025), with adjustable assumptions. Independent illustration, not affiliated with AFC.">
+  <meta name="author" content="Nathan Savundranayagam">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='18' width='6' height='11' rx='1' fill='%23D9661C'/%3E%3Crect x='13' y='11' width='6' height='18' rx='1' fill='%23D9661C'/%3E%3Crect x='23' y='4' width='6' height='25' rx='1' fill='%23D9661C'/%3E%3C/svg%3E">
+  <script>
+    // Apply a saved theme before first paint (per-viewer convenience only).
+    try { var t = localStorage.getItem('ob-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#answer">Skip to the estimate</a>
+
+  <header class="masthead">
+    <div class="wrap">
+      <div class="masthead-top">
+        <p class="kicker">Illustrative pricing note</p>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch colour theme">
+          <span aria-hidden="true" class="theme-icon"></span><span class="theme-label">Theme</span>
+        </button>
+      </div>
+      <h1>Orange Bond pricing: an illustrative model</h1>
+      <p class="purpose">An estimate of the coupon on a 3-year LKR Orange Bond, built from the spreads on AFC's Green Bond (Feb 2025) and Social Bond (Aug 2025). Move the assumptions to test it.</p>
+      <dl class="meta">
+        <div><dt>Data as of</dt><dd><strong id="as-of">…</strong></dd></div>
+        <div><dt>Prepared by</dt><dd>Nathan Savundranayagam</dd></div>
+        <div><dt>Status</dt><dd id="status-summary">…</dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 2. Answer first -->
+    <section class="section" id="answer" aria-labelledby="answer-h">
+      <div class="wrap">
+        <h2 id="answer-h">The estimate</h2>
+        <p class="lede" id="answer-lede">Likely coupon on a 3-year Orange Bond under three structures. Coupons are on a semi-annual basis, the basis Sri Lankan Treasury bond yields are quoted on. The annual-pay equivalent is shown beneath each.</p>
+        <div class="cards" id="cards">
+          <article class="card" data-structure="none">
+            <p class="card-tag"><span class="tag-dot" aria-hidden="true"></span>No enhancement</p>
+            <p class="card-sub">Unsecured, senior. This is what the board approved.</p>
+            <p class="card-rate"><span class="num" data-out="none-semi">–</span><span class="card-unit">semi-annual</span></p>
+            <p class="card-range">Range <span data-out="none-range">–</span></p>
+            <p class="card-annual">Annual-pay equivalent <strong data-out="none-annual">–</strong></p>
+            <p class="card-interest">Interest on <span data-out="size">–</span>: <strong data-out="none-interest">–</strong> a year</p>
+          </article>
+          <article class="card" data-structure="partial">
+            <p class="card-tag"><span class="tag-dot" aria-hidden="true"></span>Partial DFI guarantee</p>
+            <p class="card-sub">Delivers <span data-out="share">–</span> of a full guarantee's spread benefit.</p>
+            <p class="card-rate"><span class="num" data-out="partial-semi">–</span><span class="card-unit">semi-annual</span></p>
+            <p class="card-range">Range <span data-out="partial-range">–</span></p>
+            <p class="card-annual">Annual-pay equivalent <strong data-out="partial-annual">–</strong></p>
+            <p class="card-interest">Interest on <span data-out="size">–</span>: <strong data-out="partial-interest">–</strong> a year</p>
+          </article>
+          <article class="card" data-structure="full">
+            <p class="card-tag"><span class="tag-dot" aria-hidden="true"></span>Full bank guarantee</p>
+            <p class="card-sub">As on the Green Bond (Seylan Bank).</p>
+            <p class="card-rate"><span class="num" data-out="full-semi">–</span><span class="card-unit">semi-annual</span></p>
+            <p class="card-range">Spread from the 3-year Green Bond; no range</p>
+            <p class="card-annual">Annual-pay equivalent <strong data-out="full-annual">–</strong></p>
+            <p class="card-interest">Interest on <span data-out="size">–</span>: <strong data-out="full-interest">–</strong> a year</p>
+          </article>
+        </div>
+        <p class="note" id="scenario-note" hidden></p>
+        <p class="note">How each coupon is built: government yield now <strong data-out="gov">–</strong> plus AFC's spread. Ranges use the low and high Social Bond spreads. Not a price quote: the arranger and AFC set actual terms.</p>
+      </div>
+    </section>
+
+    <!-- 3. How the estimate is built -->
+    <section class="section" aria-labelledby="build-h">
+      <div class="wrap">
+        <h2 id="build-h">How the estimate is built: AFC's last two issues</h2>
+        <p class="lede">Each bar is the government yield at pricing (grey) plus AFC's spread, all on a semi-annual basis. The Orange rows reuse the historical spreads on today's government yield.</p>
+        <ul class="legend" aria-label="Chart legend">
+          <li><span class="sw sw-gov" aria-hidden="true"></span>Government yield at pricing</li>
+          <li><span class="sw sw-green" aria-hidden="true"></span>AFC spread: Green Bond (guaranteed)</li>
+          <li><span class="sw sw-social" aria-hidden="true"></span>AFC spread: Social Bond (unsecured)</li>
+          <li><span class="sw sw-orange" aria-hidden="true"></span>AFC spread: Orange Bond (estimate)</li>
+        </ul>
+        <div class="chart-box chart-build">
+          <canvas id="build-chart" role="img" aria-label="Stacked horizontal bar chart: government yield plus AFC spread for each issue. The same figures are in the table below."></canvas>
+          <p class="chart-fallback" hidden>The chart library (Chart.js) could not load, possibly because you are offline. All the figures are in the table below.</p>
+        </div>
+        <p class="takeaway" id="build-takeaway">…</p>
+        <details class="numbers">
+          <summary>Show the numbers</summary>
+          <div class="table-scroll">
+            <table class="simple" id="build-table">
+              <caption class="sr-only">Government yield, AFC spread and coupon for each issue (semi-annual basis)</caption>
+              <thead><tr><th scope="col">Issue</th><th scope="col">Government bond used</th><th scope="col">Gov. yield</th><th scope="col">AFC spread</th><th scope="col">Coupon (semi-annual)</th><th scope="col">Coupon as paid</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 4. What a guarantee is worth -->
+    <section class="section" aria-labelledby="guar-h">
+      <div class="wrap">
+        <h2 id="guar-h">What a guarantee is worth</h2>
+        <p class="lede">AFC's guaranteed Green Bond priced at a much tighter spread than its unsecured Social Bond. The gap is our estimate of the guarantee effect. It comes from only two issues, priced on different dates, at different tenors and in different market conditions.</p>
+        <div class="chart-box chart-guar" id="guar-chart" role="img" aria-label="Spread comparison chart"></div>
+
+        <div class="econ">
+          <div class="econ-item">
+            <p class="econ-label">Gross saving from a full guarantee</p>
+            <p class="econ-value" data-out="gross-year">–</p>
+            <p class="econ-sub">a year, or <strong data-out="gross-tenor">–</strong> over <span data-out="tenor">–</span> years</p>
+          </div>
+          <div class="econ-item">
+            <p class="econ-label">Breakeven guarantee fee</p>
+            <p class="econ-value" data-out="breakeven">–</p>
+            <p class="econ-sub">a year on the covered amount of <strong data-out="covered">–</strong> (<span data-out="coverage">–</span> × issue size)</p>
+          </div>
+          <div class="econ-item econ-net" id="econ-net">
+            <p class="econ-label">Net saving at a <span data-out="fee">–</span> fee</p>
+            <p class="econ-value"><span class="net-icon" aria-hidden="true"></span><span data-out="net-tenor">–</span></p>
+            <p class="econ-sub" data-out="net-verdict">–</p>
+          </div>
+        </div>
+        <p class="note">Gross saving a year = issue size × (no-enhancement coupon − full-guarantee coupon). Breakeven fee = gross saving a year ÷ covered amount. Net saving = (gross saving − fee × covered amount) × tenor, <strong>undiscounted</strong>. Arranger fees and other issue costs are excluded. The default fee is a <strong>placeholder assumption, not a quote</strong>. With a partial guarantee, the saving and the covered amount both scale with the share in this model, so the breakeven fee is broadly the same.</p>
+        <p class="thumb"><strong>Rule of thumb:</strong> every 0.25 point saved on LKR 1bn is LKR 2.5m a year. On <span data-out="size">–</span> it is <strong data-out="thumb">–</strong> a year.</p>
+      </div>
+    </section>
+
+    <!-- 5. Assumptions -->
+    <section class="section section-assumptions" id="assumptions" aria-labelledby="assump-h">
+      <div class="wrap">
+        <div class="assump-head">
+          <h2 id="assump-h">Assumptions</h2>
+          <div class="assump-actions">
+            <button type="button" class="btn" id="reset">Reset to base case</button>
+            <button type="button" class="btn btn-quiet" id="copy-link">Copy link to this scenario</button>
+          </div>
+        </div>
+        <p class="lede">The page recalculates as you move each slider. The tick on each slider marks the base case, and the link in your address bar reproduces the scenario you set.</p>
+        <p class="sr-only" aria-live="polite" id="live"></p>
+        <form class="sliders" id="sliders" onsubmit="return false"></form>
+      </div>
+    </section>
+
+    <!-- 6. Methodology -->
+    <section class="section prose" aria-labelledby="method-h">
+      <div class="wrap">
+        <h2 id="method-h">Methodology</h2>
+        <h3>Conventions</h3>
+        <ul>
+          <li>Sri Lankan Treasury bond yields are quoted on a <strong>semi-annual basis</strong>. Each coupon is converted to that basis before it is compared with a government yield.
+            <ul>
+              <li>Annual-pay to semi-annual basis: <code>annualToSemi(r) = 2 × (√(1 + r) − 1)</code>. The Social Bond's 11.15% and 11.40% (paid annually) become 10.86% and 11.09%.</li>
+              <li>Semi-annual basis to annual-pay: <code>semiToAnnual(r) = (1 + r/2)² − 1</code>. Used for the annual-pay equivalents on the cards.</li>
+            </ul>
+          </li>
+          <li>Spreads are in percentage points (“+1.50 pts”). Amounts are in Sri Lankan rupees.</li>
+          <li>Government yields are secondary-market levels from Wealth Trust Securities' daily reports, some as republished by the Daily FT. Where a source gives a range (e.g. 9.36%–9.35%), the midpoint is used. For today's yield, the midpoint of the closing offer and bid is used.</li>
+          <li>Reference dates: the government yield is taken as close as possible to the date the coupon was fixed. For the Social Bond that is its prospectus date, 7 Aug 2025. The Green Bond's prospectus date is not public, so its opening date, 17 Feb 2025, is used.</li>
+        </ul>
+        <h3>Steps</h3>
+        <ol>
+          <li><strong>Historical spread</strong> = coupon on a semi-annual basis − the tenor-matched government yield at pricing. Green 3y: 15.02.28. Social 4y (matures 27 Aug 2029): 15.10.29. Social 5y (matures 27 Aug 2030): 01.07.30.</li>
+          <li><strong>Unsecured spread</strong> = the average of the two Social spreads. The two Social spreads give the low and high ends of the range.</li>
+          <li><strong>Guaranteed spread</strong> = the Green spread.</li>
+          <li><strong>Guarantee effect</strong> = unsecured spread − guaranteed spread. This is an estimate from two issues priced on different dates, at different tenors and in different market conditions.</li>
+          <li><strong>Orange coupons</strong> (semi-annual basis), with <em>g</em> = government yield now:
+            <ul>
+              <li>No enhancement = <em>g</em> + unsecured spread + tenor adjustment.</li>
+              <li>Full bank guarantee = <em>g</em> + guaranteed spread.</li>
+              <li>Partial DFI guarantee = <em>g</em> + (unsecured spread + tenor adjustment) − share × guarantee effect. At share 0 this equals no enhancement; at share 1 it equals a full guarantee.</li>
+            </ul>
+          </li>
+          <li><strong>Government yield now</strong>: the 15.12.29 Treasury bond, midpoint of its closing quote in the latest Wealth Trust daily report. If the Orange Bond issues around December 2026, a 3-year bond matures around December 2029.</li>
+          <li><strong>Tenor adjustment</strong> (default 0.00): the Social spreads come from 4- and 5-year bonds, while the Orange Bond is 3-year. Credit spreads usually rise with tenor, so a 3-year unsecured spread may be slightly tighter, which calls for a negative adjustment. The two Social tranches differ by only about 0.09 points for one extra year, which suggests the effect is small. The adjustment applies to the unsecured spread only, because the guaranteed spread already comes from a 3-year bond.</li>
+          <li><strong>Economics</strong>: interest a year = issue size × coupon. Gross saving from a guarantee = size × (no-enhancement − full-guarantee coupon). Covered amount = size × coverage factor (default 1.10, i.e. principal plus about one year's interest; the Green Bond's guarantee covered LKR 1.107bn on LKR 1bn). Breakeven fee = gross saving a year ÷ covered amount. Net saving = (gross saving − fee × covered amount) × tenor, undiscounted.</li>
+        </ol>
+        <h3>Limitations</h3>
+        <ul>
+          <li><strong>Two data points.</strong> The guarantee effect rests on one guaranteed and one unsecured issue. It is an indication, not a statistical estimate.</li>
+          <li><strong>Different dates, tenors and market conditions.</strong> The Green Bond priced in February 2025 and the Social Bond in August 2025, with government yields about 0.7 points apart and a different curve shape. The spreads also include whatever premium or discount each market environment and investor base implied.</li>
+          <li><strong>Ratings differ.</strong> The guaranteed Green Bond carried LRA's A- at issue (upgraded to A+ in June 2025), in line with the guarantor Seylan Bank. AFC's own entity rating was BBB- then, and BBB (LRA) by the time of the Social Bond and today. The Social Bond priced after that upgrade, and AFC is still BBB, so the unsecured spread reflects AFC's current rating. The Green Bond's spread mainly reflects Seylan Bank's credit, although investors also had recourse to AFC, then rated a notch lower. An Orange Bond guarantee from a different bank or DFI, with a different rating, could be worth more or less.</li>
+          <li><strong>Issue costs excluded.</strong> Arranger and placement fees, listing, trustee and rating fees, and any DFI structuring costs are not modelled.</li>
+          <li><strong>The Orange label's own effect on demand is not modelled.</strong> A first-of-its-kind gender bond may draw impact investors or DFIs and tighten pricing, or carry a novelty premium. Neither is assumed.</li>
+          <li><strong>Other factors not modelled:</strong> issue size relative to demand (both earlier issues were oversubscribed on the opening day); a preferential allotment to identified investors (15 million of the Social Bond's 20 million bonds); the liquidity of a small listed issue; and moves in government yields between now and pricing.</li>
+          <li><strong>The board approved an unsecured bond.</strong> The guarantee structures are alternatives to consider, not current plans.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Data -->
+    <section class="section" aria-labelledby="data-h">
+      <div class="wrap">
+        <h2 id="data-h">Data and sources</h2>
+        <p class="lede">Every number on the page comes from these inputs (<a href="data/inputs.json">data/inputs.json</a>) or from a formula above applied to them. Each input shows its status: <span class="badge badge-verified">✓ Verified</span> (checked against the source), <span class="badge badge-approximate">≈ Approximate</span> (sourced, but an approximation) or <span class="badge badge-unverified">! Unverified</span> (not confirmed by a source). Assumptions are marked as such.</p>
+        <div class="table-scroll">
+          <table class="data-table" id="data-table">
+            <caption class="sr-only">All inputs with value, status, source, source date and quote</caption>
+            <thead><tr><th scope="col">Input</th><th scope="col">Value</th><th scope="col">Status</th><th scope="col">Source</th><th scope="col">Source date</th><th scope="col">Quote and notes</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Independent illustration by Nathan Savundranayagam using public information. Not affiliated with, prepared for publication by, or endorsed by Alliance Finance Company PLC. Not a price quote, an offer, or investment advice. The arranger and AFC set actual terms.</p>
+      <p class="footer-small">Source code, tests and verification log: see README.md in this repository. Charts use Chart.js 4.4.1.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js" integrity="sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG" crossorigin="anonymous"></script>
+  <script src="data/inputs.js"></script>
+  <script src="src/model.js"></script>
+  <script src="src/format.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>
